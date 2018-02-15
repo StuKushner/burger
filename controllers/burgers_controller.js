@@ -2,8 +2,10 @@ var express = require("express");
 
 var router = express.Router();
 
+// Import the burger model to use
 var burger = require("../models/burger.js");
 
+// Create all of our routes and set up the appropriate logic
 router.get("/", function(req, res){
 	burger.selectAll(function(data){
 		var hbsObject = {
@@ -34,4 +36,5 @@ router.put("/:id", function(req, res){
 	});
 });
 
+// Export router for server.js to use
 module.exports = router;

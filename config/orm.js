@@ -1,5 +1,7 @@
+// Import MySQL connection
 var connection = require("../config/connection.js");
 
+// A helper function that loops through an array and turns it into a string
 function printQuestionMarks(num) {
 	var arr = [];
 
@@ -10,21 +12,27 @@ function printQuestionMarks(num) {
 	return arr.toString();
 }
 
+// A helper function that turns object key/value pairs into MySQL syntax
 function objToSql(ob) {
 	var arr = [];
 
+	// loop through the keys and push the key/value as a string int arr
 	for (var key in ob) {
 		var value = ob[key];
+		// Check to skip hidden properties
 		if (Object.hasOwnProperty.call(ob, key)) {
+			// if string with spaces, add quotations
 			if (typeof value === "string" && value.indexOf >= 0) {
 				value = "'" + value + "'";
 			}
 			arr.push(key + "=" + value);
 		}
 	}
+	// translate array of strings into a single comma-separated string
 	return arr.toString();
 }
 
+// Object for all of our SQL statement functions
 var orm = {
 	selectAll: function(tableInput, cb) {
 		var queryString = "SELECT * FROM " + tableInput + ";";
@@ -67,4 +75,5 @@ var orm = {
 	}
 };
 
+// Export the ORM to be used
 module.exports = orm;
